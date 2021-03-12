@@ -18,7 +18,7 @@ def tickets():
   try: 
     conn = mysql.connect()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM `tickets`")
+    cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NULL")
     data = cursor.fetchall()
   except:
     print('error with database')
@@ -31,14 +31,29 @@ def addTicket():
   conn = mysql.connect()
   cursor = conn.cursor()
 
-  cursor.execute("SELECT * FROM `tickets`")
-  data = cursor.fetchall()
-
   ticketname = request.form['ticketname']
   ticketdesc = request.form['ticketdesc']
 
   sql = "INSERT INTO `tickets` (`ticket_name`, `ticket_description`, `created_at`) VALUES (%s, %s, %s)"
   cursor.execute(sql, (ticketname, ticketdesc, datetime.datetime.now(),))
+
+  cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NULL")
+  data = cursor.fetchall()
+
+  return render_template('tickets.html', data=data)
+
+
+@app.route("/ticket/<id>", methods=['GET'])
+def removeTicket(id):
+  conn = mysql.connect()
+  cursor = conn.cursor()
+
+  sql = "UPDATE `tickets` SET `solved` = '1' WHERE `id` = %s"
+  cursor.execute(sql, id,)
+  video = cursor.fetchall()
+
+  cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NULL")
+  data = cursor.fetchall()
 
   return render_template('tickets.html', data=data)
   

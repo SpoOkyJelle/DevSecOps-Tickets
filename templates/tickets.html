@@ -24,7 +24,13 @@
 
                     <div class="card mt-2">
                         <div class="card-body">
-                            <h5 class="card-title">{{ item[1] }}</h5>
+                            <h5 class="card-title d-flex justify-content-between">
+                                {{ item[1] }}
+                                <a href="{{ url_for('removeTicket', id='') }}{{ item[0] }}">
+                                    <p class="remove"><small>✔️</small></p>
+                                </a>
+                            </h5>
+
                             <p class="card-text">{{ item[2] }}</p>
                         </div>
                     </div>
