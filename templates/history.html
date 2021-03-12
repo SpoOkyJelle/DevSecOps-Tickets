@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket historys</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link type="text/css" href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <h2 class="mt-5">All solved tickets</h2>
+
+        {% for item in data %}
+
+        <div class="card mt-2">
+            <div class="card-body">
+                <h5 class="card-title d-flex justify-content-between">
+                    {{ item[1] }}
+                    <a href="{{ url_for('placeBack', id='') }}{{ item[0] }}">
+                        <p class="remove"><small>❌</small></p>
+                    </a>
+                </h5>
+
+                <p class="card-text">{{ item[2] }}</p>
+            </div>
+        </div>
+
+        {% endfor %}
+    </div>
+</body>
+
+</html>

@@ -57,6 +57,31 @@ def removeTicket(id):
 
   return render_template('tickets.html', data=data)
   
+@app.route("/history")
+def history():
+  try: 
+    conn = mysql.connect()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NOT NULL")
+    data = cursor.fetchall()
+  except:
+    print('error with database')
+    data='error with database'
+  return render_template('history.html', data=data)
+
+@app.route("/history/ticket/<id>", methods=['GET'])
+def placeBack(id):
+  conn = mysql.connect()
+  cursor = conn.cursor()
+
+  sql = "UPDATE `tickets` SET `solved` = NULL WHERE `id` = %s"
+  cursor.execute(sql, id,)
+
+  cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NOT NULL")
+  data = cursor.fetchall()
+
+  return render_template('history.html', data=data)
+
 
 if __name__ == "__main__":
   app.run(debug=True)
