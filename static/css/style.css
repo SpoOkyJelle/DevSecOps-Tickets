@@ -1,0 +1,8 @@
+.cards {
+    height: 75vh;
+    overflow: auto;
+}
+
+::-webkit-input-placeholder {
+    text-align: right;
+}
