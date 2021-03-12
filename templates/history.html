@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ticket historys</title>
+    <title>Ticket history</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link type="text/css" href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
@@ -25,6 +25,7 @@
                         <p class="remove"><small>❌</small></p>
                     </a>
                 </h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ item[4].strftime("%b %d %Y %H:%M:%S") }}</h6>
 
                 <p class="card-text">{{ item[2] }}</p>
             </div>

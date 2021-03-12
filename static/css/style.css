@@ -3,8 +3,9 @@
     overflow: auto;
 }
 
-::-webkit-input-placeholder {
-    text-align: right;
+.card-title {
+    height: 20px;
+    ;
 }
 
 button {

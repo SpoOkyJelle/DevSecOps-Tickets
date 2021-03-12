@@ -18,7 +18,7 @@ def tickets():
   try: 
     conn = mysql.connect()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NULL")
+    cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NULL ORDER BY `created_at` DESC")
     data = cursor.fetchall()
   except:
     print('error with database')
@@ -37,7 +37,7 @@ def addTicket():
   sql = "INSERT INTO `tickets` (`ticket_name`, `ticket_description`, `created_at`) VALUES (%s, %s, %s)"
   cursor.execute(sql, (ticketname, ticketdesc, datetime.datetime.now(),))
 
-  cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NULL")
+  cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NULL ORDER BY `created_at` DESC")
   data = cursor.fetchall()
 
   return render_template('tickets.html', data=data)
@@ -52,7 +52,7 @@ def removeTicket(id):
   cursor.execute(sql, id,)
   video = cursor.fetchall()
 
-  cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NULL")
+  cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NULL ORDER BY `created_at` DESC")
   data = cursor.fetchall()
 
   return render_template('tickets.html', data=data)
@@ -62,7 +62,7 @@ def history():
   try: 
     conn = mysql.connect()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NOT NULL")
+    cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NOT NULL ORDER BY `created_at` DESC")
     data = cursor.fetchall()
   except:
     print('error with database')
@@ -77,7 +77,7 @@ def placeBack(id):
   sql = "UPDATE `tickets` SET `solved` = NULL WHERE `id` = %s"
   cursor.execute(sql, id,)
 
-  cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NOT NULL")
+  cursor.execute("SELECT * FROM `tickets` WHERE `solved` IS NOT NULL ORDER BY `created_at` DESC")
   data = cursor.fetchall()
 
   return render_template('history.html', data=data)
